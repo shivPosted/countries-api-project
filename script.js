@@ -5,10 +5,11 @@ const searchBar = document.querySelector('.search');
 const regionSelect = document.querySelector('#region');
 const errorDisplay = document.querySelector('.error--display-overlay');
 
+console.log(searchBar);
 const renderCountry = function (countryArr) {
   countryContainer.innerHTML = '';
-  countryArr.forEach(country => {
-    const html = `<div class="country--leaf">
+  countryArr.forEach((country, i) => {
+    const html = `<div class="country--leaf" data-countryNo=${i}>
           <img src=${country.flags.png} alt=${country.flags.alt} />
           <div class="country--leaf--details">
             <div class="country--leaf--details-name">${
@@ -41,11 +42,14 @@ const errorOverlay = function (err) {
   }, 2500);
 };
 
-const countriesByRegion = async function (regionPassed) {
+const countriesByRegion = async function (regionPassed, isCountry = false) {
   try {
     const response =
       regionPassed === 'all'
         ? await fetch(`https://restcountries.com/v3.1/all`)
+        : isCountry
+        ? await fetch(`https://restcountries.com/v3.1/name/${regionPassed}
+`)
         : await fetch(`https://restcountries.com/v3.1/region/${regionPassed}`);
     console.log(response);
     if (!response.ok) {
@@ -55,6 +59,8 @@ const countriesByRegion = async function (regionPassed) {
     }
     const countriesArray = await response.json();
     renderCountry(countriesArray);
+    console.log(countriesArray);
+    return countriesArray;
   } catch (err) {
     console.error(err);
   }
@@ -66,4 +72,11 @@ regionSelect.addEventListener('change', function (e) {
   e.preventDefault();
   countriesByRegion(this.value);
   console.log(this.value);
+});
+
+searchBar.addEventListener('focus', function () {
+  window.addEventListener('keypress', function (e) {
+    if (!(e.key === 'Enter' || e.key === '')) return;
+    countriesByRegion(searchBar.value.trim(), true);
+  });
 });

@@ -79,7 +79,7 @@ h1 {
 .countries--container {
   max-width: 90%;
   margin: 0 auto;
-  padding-top: 2.4rem;
+  padding-block: 2.4rem;
   display: flex;
   /* column-gap: 4rem; */
   row-gap: 2.4rem;
@@ -119,6 +119,7 @@ h1 {
 
 .country--leaf--details {
   padding-inline: 1.4rem;
+  margin-bottom: 1.4rem;
 }
 
 .country--leaf--details-name {

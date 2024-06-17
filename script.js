@@ -5,6 +5,8 @@ const searchBar = document.querySelector('.search');
 const regionSelect = document.querySelector('#region');
 const errorDisplay = document.querySelector('.error--display-overlay');
 
+let countriesInfo;
+
 console.log(searchBar);
 const renderCountry = function (countryArr) {
   countryContainer.innerHTML = '';
@@ -60,6 +62,7 @@ const countriesByRegion = async function (regionPassed, isCountry = false) {
     const countriesArray = await response.json();
     renderCountry(countriesArray);
     console.log(countriesArray);
+    countriesInfo = countriesArray;
     return countriesArray;
   } catch (err) {
     console.error(err);
@@ -79,4 +82,12 @@ searchBar.addEventListener('focus', function () {
     if (!(e.key === 'Enter' || e.key === '')) return;
     countriesByRegion(searchBar.value.trim(), true);
   });
+});
+
+countryContainer.addEventListener('click', function (e) {
+  console.log();
+  const target = e.target.closest('.country--leaf');
+  if (!target) return;
+  const countryNumber = +target.dataset.countryno;
+  const countryData = countriesInfo[countryNumber];
 });

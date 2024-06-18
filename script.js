@@ -14,6 +14,7 @@ let borderCountryContainer;
 const countryDetailsBox = document.querySelector(
   '.overlay--country--details--click'
 );
+let isDarkModeOn = false;
 mainSection.style.marginTop =
   Number.parseFloat(getComputedStyle(header).height) + 10 + 'px';
 let countriesInfo;
@@ -46,6 +47,7 @@ const darkModeToggle = function () {
     icon.classList.toggle('hidden')
   );
   console.log(this.querySelectorAll('.icon'));
+  isDarkModeOn = !isDarkModeOn;
 };
 
 const getBorderCountryName = async function (borderCodeArr) {
@@ -108,6 +110,10 @@ const renderCountry = function (countryArr) {
         </div>`;
     countryContainer.insertAdjacentHTML('beforeend', html);
   });
+  if (isDarkModeOn)
+    document.querySelectorAll('.country--leaf').forEach(elem => {
+      elem.classList.add('dark');
+    });
 };
 
 const countriesByRegion = async function (regionPassed, isCountry = false) {

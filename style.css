@@ -38,7 +38,7 @@ h1 {
   justify-content: space-between;
   padding: 1.2rem 2.4rem;
   box-shadow: 0px 2px 8px 4px #76767664;
-  z-index: 500;
+  z-index: 100;
   position: absolute;
   top: 0;
   left: 0;
@@ -199,6 +199,7 @@ input.dark {
   padding: 8px 16px;
   font-weight: 500;
   transition: all 2s ease-in;
+  z-index: 200;
 }
 
 .error--display-overlay.hidden {
@@ -219,7 +220,7 @@ input.dark {
   align-items: center; */
   background-color: #fff;
   /* margin-top: 3.2rem; */
-  transition: all 0.2s ease-in;
+  transition: all 0.4s ease-in;
 }
 
 .overlay--country--details--click.hidden {

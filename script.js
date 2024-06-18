@@ -15,8 +15,8 @@ const countryDetailsBox = document.querySelector(
   '.overlay--country--details--click'
 );
 let isDarkModeOn = false;
-mainSection.style.marginTop =
-  Number.parseFloat(getComputedStyle(header).height) + 10 + 'px';
+// mainSection.style.marginTop =
+//   Number.parseFloat(getComputedStyle(header).height) + 10 + 'px';
 let countriesInfo;
 
 const errorOverlay = function (err) {
@@ -235,13 +235,15 @@ backBtn.addEventListener('click', function () {
   this.classList.add('hidden');
   countryDetailsBox.classList.add('hidden');
   document.querySelector('body').classList.remove('no-scroll');
-  header.style.position = 'absolute';
+  header.style.position = 'sticky';
 });
 
 //back to top button
 document.querySelector('.back-to-top').addEventListener('click', function () {
-  header.scrollIntoView({ behavior: 'smooth' });
+  errorDisplay.scrollIntoView({ behavior: 'smooth' });
   console.log('clicked');
 });
 
 darkModeSwitch.addEventListener('click', darkModeToggle.bind(darkModeSwitch));
+
+console.log(getComputedStyle(header).height);

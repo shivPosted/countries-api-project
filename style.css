@@ -38,8 +38,10 @@ h1 {
   justify-content: space-between;
   padding: 1.2rem 2.4rem;
   box-shadow: 0px 2px 8px 4px #76767664;
+  background-color: hsl(0, 0%, 100%);
   z-index: 100;
-  position: absolute;
+  position: sticky;
+  height: 6rem;
   top: 0;
   left: 0;
   transition: all 0.2s ease-in;
@@ -111,7 +113,7 @@ input.dark {
 }
 .main--section {
   background-color: hsl(0, 0%, 98%);
-  padding-top: 2.4rem;
+  padding-top: 4.2rem;
   transition: all 0.2s ease-in;
 }
 
@@ -123,6 +125,7 @@ input.dark {
   max-width: 90%;
   margin: 0 auto;
   padding-block: 2.4rem;
+  padding-top: 3.2rem;
   display: flex;
   /* column-gap: 4rem; */
   row-gap: 2.4rem;

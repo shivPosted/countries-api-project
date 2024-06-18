@@ -1,6 +1,7 @@
 'use-strict';
 
 const countryContainer = document.querySelector('.countries--container');
+const darkModeSwitch = document.querySelector('.theme-switcher');
 const searchBar = document.querySelector('.search');
 const regionSelect = document.querySelector('#region');
 const errorDisplay = document.querySelector('.error--display-overlay');
@@ -25,6 +26,26 @@ const errorOverlay = function (err) {
   setTimeout(function () {
     errorDisplay.classList.add('hidden');
   }, 2500);
+};
+
+const darkModeToggle = function () {
+  console.log('clicked');
+  header.classList.toggle('dark');
+  document.querySelector('body').classList.toggle('dark');
+  mainSection.classList.toggle('dark');
+  searchBar.classList.toggle('dark');
+  regionSelect.classList.toggle('dark');
+  searchBar.closest('.search--bar').classList.toggle('dark');
+  backBtn.classList.toggle('dark');
+  countryDetailsBox.classList.toggle('dark');
+  document.querySelectorAll('.country--leaf').forEach(elem => {
+    elem.classList.toggle('dark');
+  });
+
+  this.querySelectorAll('.icon').forEach(icon =>
+    icon.classList.toggle('hidden')
+  );
+  console.log(this.querySelectorAll('.icon'));
 };
 
 const getBorderCountryName = async function (borderCodeArr) {
@@ -123,8 +144,12 @@ regionSelect.addEventListener('change', function (e) {
 
 searchBar.addEventListener('focus', function () {
   window.addEventListener('keypress', function (e) {
-    if (!(e.key === 'Enter' || e.key === '')) return;
-    countriesByRegion(searchBar.value.trim(), true);
+    if (!(e.key === 'Enter')) return;
+
+    e.target.value === ''
+      ? countriesByRegion('all')
+      : countriesByRegion(searchBar.value.trim(), true);
+    e.target.value = '';
   });
 });
 
@@ -212,3 +237,5 @@ document.querySelector('.back-to-top').addEventListener('click', function () {
   header.scrollIntoView({ behavior: 'smooth' });
   console.log('clicked');
 });
+
+darkModeSwitch.addEventListener('click', darkModeToggle.bind(darkModeSwitch));

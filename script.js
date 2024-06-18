@@ -46,7 +46,8 @@ const darkModeToggle = function () {
   this.querySelectorAll('.icon').forEach(icon =>
     icon.classList.toggle('hidden')
   );
-  console.log(this.querySelectorAll('.icon'));
+  document.querySelector('.back-to-top').classList.toggle('dark');
+  document.querySelector('.back-to-top > i').classList.toggle('dark');
   isDarkModeOn = !isDarkModeOn;
 };
 
@@ -155,7 +156,7 @@ searchBar.addEventListener('focus', function () {
     e.target.value === ''
       ? countriesByRegion('all')
       : countriesByRegion(searchBar.value.trim(), true);
-    e.target.value = '';
+    // e.target.value = '';
   });
 });
 

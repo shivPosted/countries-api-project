@@ -116,6 +116,9 @@ input.dark {
   padding-top: 4.2rem;
   transition: all 0.2s ease-in;
 }
+input.dark:focus {
+  background-color: hsl(209, 23%, 22%);
+}
 
 .main--section.dark {
   background-color: hsl(207, 26%, 17%);
@@ -331,6 +334,13 @@ input.dark {
   cursor: pointer;
 }
 
+.back-to-top.dark {
+  background-color: hsl(0, 0%, 98%);
+}
 .back-to-top > i {
   color: #f7f7f7;
+}
+
+.back-to-top > i.dark {
+  color: hsl(207, 26%, 17%);
 }

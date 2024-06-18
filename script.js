@@ -55,9 +55,8 @@ const countriesByRegion = async function (regionPassed, isCountry = false) {
         : await fetch(`https://restcountries.com/v3.1/region/${regionPassed}`);
     console.log(response);
     if (!response.ok) {
-      const error = new Error('Server is Down');
-      errorOverlay(error.message);
-      throw new Error();
+      const error = new Error('Server is Down or Wrong country typed');
+      throw error;
     }
     const countriesArray = await response.json();
     renderCountry(countriesArray);
@@ -66,10 +65,11 @@ const countriesByRegion = async function (regionPassed, isCountry = false) {
     return countriesArray;
   } catch (err) {
     console.error(err);
+    errorOverlay(err.message);
   }
 };
 
-countriesByRegion('all');
+// countriesByRegion('all');
 
 regionSelect.addEventListener('change', function (e) {
   e.preventDefault();

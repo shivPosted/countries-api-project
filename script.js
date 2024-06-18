@@ -62,29 +62,41 @@ const getBorderCountryName = async function (borderCodeArr) {
     });
     const response = await Promise.all(promiseArr);
     const borderCountryDatas = response.flat();
-    const border = borderCountryDatas.map(borderObj => borderObj.name.common);
-    return border;
+    return borderCountryDatas;
   } catch (err) {
     throw err;
   }
 };
 
-const displayBorders = function (borderArr) {
-  let countryArr;
-  getBorderCountryName(borderArr)
-    .then(res => {
-      countryArr = res;
-      countryArr.forEach(borderCountry => {
-        const borderHtml = `<p class="border--country--individual">${borderCountry}</p>`;
-        borderCountryContainer.insertAdjacentHTML('beforeend', borderHtml);
-      });
-      // console.log(countryArr);
-    })
-    .catch(err => {
-      errorOverlay(err.message);
-      console.error(err);
-    });
-  console.log(countryArr);
+const displayBorders = async function (borderArr) {
+  // getBorderCountryName(borderArr)
+  //   .then(res => {
+  //     countryArr = res;
+  //     countryArr.forEach(borderCountry => {
+  //       const borderHtml = `<p class="border--country--individual">${borderCountry}</p>`;
+  //       borderCountryContainer.insertAdjacentHTML('beforeend', borderHtml);
+  //     });
+  //     // console.log(countryArr);
+  //   })
+  //   .catch(err => {
+  //     errorOverlay(err.message);
+  //     console.error(err);
+  //   });
+  const res = await getBorderCountryName(borderArr);
+  const countryArr = res;
+  countryArr.forEach((borderCountry, i) => {
+    const borderHtml = `<p class="border--country--individual " data-border= ${i}>${borderCountry.name.common}</p>`;
+    borderCountryContainer.insertAdjacentHTML('beforeend', borderHtml);
+  });
+  borderCountryContainer.addEventListener('click', function (e) {
+    const target = e.target.closest('.border--country--individual');
+    console.log(target);
+    if (!target) return;
+    const borderNo = +target.dataset.border;
+    console.log(borderNo);
+    console.log(countryArr[borderNo]);
+    countryDetailDisplayFunction(countryArr[borderNo]);
+  });
 };
 
 const renderCountry = function (countryArr) {
@@ -214,14 +226,7 @@ const renderCountryBox = country => {
         'This is an island');
 };
 
-countryContainer.addEventListener('click', function (e) {
-  const target = e.target.closest('.country--leaf');
-  if (!target) return;
-  const countryNumber = +target.dataset.countryno;
-
-  const countryData = countriesInfo[countryNumber];
-  console.log(countryData);
-
+const countryDetailDisplayFunction = function (countryData) {
   setTimeout(() => {
     backBtn.classList.remove('hidden');
     header.style.position = 'fixed';
@@ -230,6 +235,16 @@ countryContainer.addEventListener('click', function (e) {
   countryDetailsBox.classList.remove('hidden');
   renderCountryBox(countryData);
   document.querySelector('body').classList.add('no-scroll');
+};
+
+countryContainer.addEventListener('click', function (e) {
+  const target = e.target.closest('.country--leaf');
+  if (!target) return;
+  const countryNumber = +target.dataset.countryno;
+
+  const countryData = countriesInfo[countryNumber];
+
+  countryDetailDisplayFunction(countryData);
 });
 
 backBtn.addEventListener('click', function () {

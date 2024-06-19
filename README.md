@@ -29,6 +29,7 @@ Users should be able to:
 
 ### Built with
 
+- Vanilla Javascript
 - Semantic HTML5 markup
 - CSS custom properties
 - Flexbox
